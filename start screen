@@ -1,1 +1,47 @@
+from cmu_graphics import *
 
+def onAppStart(app):
+    app.url = 'cmu://664494/26105025/dd7wrk6-a2652c12-c6c6-4b80-927c-c528435fb476.png'
+    app.start = False
+    app.screen = 0
+
+def redrawAll(app):
+    imageWidth, imageHeight = getImageSize(app.url)
+
+    drawImage(app.url, 125, 200, align='center')
+    
+    if app.start == False and app.screen == 0:
+        drawLabel('TA DATING SIMULATOR',370, 170, size=50, font= 'courier',
+        bold = True, fill = 'pink')
+        drawRect(210, 450, 320, 40, fill= 'white')
+        drawLabel('press space to start', 370, 470, size = 25, font ='courier',
+        bold = True, fill = 'pink')
+        drawLabel('''press space to advance through dialouge and arrow keys to move avatar''',
+        60, 200, size = 15, font =' courier', align = 'left',
+        bold = True, fill = 'pink')
+        
+    
+    if app.start == True:
+        drawRect(20, 340, 700, 200, fill = 'pink', border = 'white', borderWidth = 5)
+    if app.screen >= 1: 
+        characterLines(app)
+
+def characterLines(app):
+    linedict = dict()
+    
+    linedict[1] = 'hey here is dialouge'
+    linedict[2] = 'more dialouge'
+    if app.screen in linedict:
+        drawLabel(f'{linedict[app.screen]}', 40, 370, align = 'left', size = 20)
+    
+
+def onKeyPress(app, key):
+    if key == 'space':
+        app.start = True
+        app.screen += 1
+
+
+def main():
+  runApp(width=760, height=560)
+
+main()
